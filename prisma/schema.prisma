@@ -8,12 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Basket {
-  id          Int         @id @default(autoincrement())
-  type        String // e.g. "plastic", "wooden", or model type
-  createdAt   DateTime    @default(now())
-  inventories Inventory[]
-  movements   Movement[]
+enum BasketType {
+  BIG
+  SMALL
 }
 
 model Place {
@@ -66,20 +63,21 @@ model RouteStore {
 }
 
 model Inventory {
-  id       Int    @id @default(autoincrement())
-  place    Place  @relation(fields: [placeId], references: [id])
-  placeId  Int
-  basket   Basket @relation(fields: [basketId], references: [id])
-  basketId Int
-  quantity Int    @default(0)
+  id      Int   @id @default(autoincrement())
+  place   Place @relation(fields: [placeId], references: [id])
+  placeId Int
 
-  @@unique([placeId, basketId])
+  basketType BasketType
+  quantity   Int
+
+  updatedAt DateTime @updatedAt
+
+  @@unique([placeId, basketType])
 }
 
 model Movement {
-  id          Int      @id @default(autoincrement())
-  basket      Basket   @relation(fields: [basketId], references: [id])
-  basketId    Int
+  id Int @id @default(autoincrement())
+
   fromPlace   Place?   @relation("MovementFrom", fields: [fromPlaceId], references: [id])
   fromPlaceId Int?
   toPlace     Place?   @relation("MovementTo", fields: [toPlaceId], references: [id])
