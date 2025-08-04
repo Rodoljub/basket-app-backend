@@ -16,3 +16,6 @@ dist/
 build/
 .idea/
 .vscode/
+
+# Prisma generated client
+generated
