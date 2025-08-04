@@ -6,10 +6,38 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Place {
+  id        Int       @id @default(autoincrement())
+  name      String
+  type      PlaceType
+  baskets   Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  transfersFrom Transfer[] @relation("FromPlace")
+  transfersTo   Transfer[] @relation("ToPlace")
+}
+
+model Transfer {
+  id        Int      @id @default(autoincrement())
+  fromId    Int
+  toId      Int
+  quantity  Int
+  createdAt DateTime @default(now())
+
+  from      Place    @relation("FromPlace", fields: [fromId], references: [id])
+  to        Place    @relation("ToPlace", fields: [toId], references: [id])
+}
+
+enum PlaceType {
+  STORE
+  VAN
+  WAREHOUSE
+}
+
