@@ -15,7 +15,7 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   const { routeId, placeId, order } = req.body;
-  const result = await routeStoreService.create({ routeId, placeId, order });
+  const result = await routeStoreService.create({ routeId, placeId });
   res.status(201).json(result);
 };
 
@@ -33,6 +33,7 @@ export const remove = async (req: Request, res: Response) => {
   if (!ok) return res.status(404).json({ error: 'Not found' });
   res.json({ message: 'Deleted' });
 };
+
 
 export const getByRouteId = async (req: Request, res: Response) => {
   const routeId = Number(req.params.routeId);
@@ -56,5 +57,57 @@ export const bulkReorder = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Bulk reorder failed', detail: err });
   }
 };
+
+export const insertAtOrder = async (req: Request, res: Response) => {
+  try {
+    const dto = req.body; // Expecting routeId, placeId, order
+
+    if (
+      typeof dto.routeId !== 'number' ||
+      typeof dto.placeId !== 'number' ||
+      typeof dto.order !== 'number'
+    ) {
+      return res.status(400).json({ error: 'Invalid input' });
+    }
+
+    const inserted = await routeStoreService.insertAtOrder(dto);
+    res.json(inserted);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message || 'Failed to insert at order' });
+  }
+};
+
+export const moveToOrder = async (req: Request, res: Response) => {
+  try {
+    const { id, newOrder } = req.body;
+
+    if (typeof id !== 'number' || typeof newOrder !== 'number') {
+      return res.status(400).json({ error: 'Invalid input' });
+    }
+
+    const updated = await routeStoreService.moveToOrder({ id, newOrder });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message || 'Failed to move RouteStore' });
+  }
+};
+
+export const getOrderedRouteStores = async (req: Request, res: Response) => {
+  try {
+    const routeId = parseInt(req.params.routeId);
+
+    if (isNaN(routeId)) {
+      return res.status(400).json({ error: 'Invalid routeId' });
+    }
+
+    const stores = await routeStoreService.getOrderedRouteStores(routeId);
+    res.json(stores);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to get route stores' });
+  }
+};
+
+
+
 
 
