@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
+
 }
 
 datasource db {
@@ -76,12 +76,12 @@ model Inventory {
 }
 
 model Movement {
-  id Int @id @default(autoincrement())
-
-  fromPlace   Place?   @relation("MovementFrom", fields: [fromPlaceId], references: [id])
+  id          Int        @id @default(autoincrement())
+  fromPlace   Place?     @relation("MovementFrom", fields: [fromPlaceId], references: [id])
   fromPlaceId Int?
-  toPlace     Place?   @relation("MovementTo", fields: [toPlaceId], references: [id])
+  toPlace     Place?     @relation("MovementTo", fields: [toPlaceId], references: [id])
   toPlaceId   Int?
   quantity    Int
-  timestamp   DateTime @default(now())
+  basketType  BasketType
+  timestamp   DateTime   @default(now())
 }
