@@ -1,0 +1,61 @@
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+export const RouteService = {
+getAllRoutes: async () => {
+  return prisma.route.findMany({
+    include: {
+      driver: true,
+      routeStores: {
+        include: { place: true },
+      },
+    },
+    orderBy: { id: 'asc' },
+  });
+},
+
+getRouteById: async (id: number) => {
+  return prisma.route.findUnique({
+    where: { id },
+    include: {
+      driver: true,
+      routeStores: {
+        include: { place: true },
+      },
+    },
+  });
+},
+
+createRoute: async (name: string, driverId: number) => {
+  return prisma.route.create({
+    data: {
+      name,
+      driverId,
+    },
+  });
+},
+
+updateRoute: async (id: number, name: string, driverId: number) => {
+  try {
+    return await prisma.route.update({
+      where: { id },
+      data: {
+        name,
+        driverId,
+      },
+    });
+  } catch {
+    return null;
+  }
+},
+
+deleteRoute: async (id: number) => {
+  try {
+    await prisma.route.delete({ where: { id } });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+}
