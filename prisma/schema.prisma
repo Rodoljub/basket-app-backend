@@ -47,8 +47,8 @@ model Van {
 model Route {
   id          Int          @id @default(autoincrement())
   name        String
-  driver      Driver       @relation(fields: [driverId], references: [id])
-  driverId    Int
+  driver      Driver?       @relation(fields: [driverId], references: [id])
+  driverId    Int?
   routeStores RouteStore[]
   createdAt   DateTime     @default(now())
 }

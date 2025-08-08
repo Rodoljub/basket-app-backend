@@ -14,8 +14,8 @@ export const getRouteById = async (req: Request, res: Response) => {
 };
 
 export const createRoute = async (req: Request, res: Response) => {
-  const { name, driverId } = req.body;
-  const route = await RouteService.createRoute(name, driverId);
+  const { name } = req.body;
+  const route = await RouteService.createRoute(name);
   res.status(201).json(route);
 };
 

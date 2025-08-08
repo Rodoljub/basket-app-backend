@@ -26,11 +26,10 @@ getRouteById: async (id: number) => {
   });
 },
 
-createRoute: async (name: string, driverId: number) => {
+createRoute: async (name: string) => {
   return prisma.route.create({
     data: {
-      name,
-      driverId,
+      name
     },
   });
 },

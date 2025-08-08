@@ -15,7 +15,10 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   const { routeId, placeId, order } = req.body;
-  const result = await routeStoreService.create({ routeId, placeId });
+  const result = await routeStoreService.create({ 
+    routeId: Number(routeId),
+    placeId: Number(placeId)
+  });
   res.status(201).json(result);
 };
 

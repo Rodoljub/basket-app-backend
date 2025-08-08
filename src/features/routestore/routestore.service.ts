@@ -22,10 +22,6 @@ export const getById = async (id: number) => {
   });
 };
 
-// export const create = async (data: { routeId: number; placeId: number; order: number }) => {
-//   return prisma.routeStore.create({ data });
-// };
-
 export const create = async (dto: {
   routeId: number;
   placeId: number;
@@ -61,15 +57,6 @@ export const update = async (
     return null;
   }
 };
-
-// export const remove = async (id: number) => {
-//   try {
-//     await prisma.routeStore.delete({ where: { id } });
-//     return true;
-//   } catch {
-//     return false;
-//   }
-// };
 
 export const remove = async (id: number) => {
   const existing = await prisma.routeStore.findUnique({ where: { id } });

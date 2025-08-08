@@ -19,8 +19,8 @@ app.use(express.json());
 app.use('/api/places', placeRoutes); // Now available at /api/places
 app.use('/api/inventories', inventoryRoutes);
 app.use('/api/movements', movementRoutes);
-app.use('/drivers', driverRoutes);
-app.use('/routes', routeRoutes);
-app.use('/routestores', routeStoreRoutes);
+app.use('/api/drivers', driverRoutes);
+app.use('/api/routes', routeRoutes);
+app.use('/api/routestores', routeStoreRoutes);
 
 export default app;
