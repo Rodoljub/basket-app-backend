@@ -43,7 +43,6 @@ export const create = async (dto: {
   });
 };
 
-
 export const update = async (
   id: number,
   data: { routeId: number; placeId: number; order: number }
@@ -81,7 +80,6 @@ export const remove = async (id: number) => {
 
   return { success: true };
 };
-
 
 export const getByRouteId = async (routeId: number) => {
   return prisma.routeStore.findMany({

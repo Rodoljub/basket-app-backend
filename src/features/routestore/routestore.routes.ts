@@ -17,7 +17,7 @@ const router = Router();
 router.get('/by-route/:routeId', getByRouteId);
 router.put('/bulk-reorder', bulkReorder);
 router.post('/insert-at-order', insertAtOrder);
-router.put('/move-to-order', moveToOrder);
+router.patch('/move-to-order', moveToOrder);
 
 router.get('/route/:routeId', getOrderedRouteStores);
 
