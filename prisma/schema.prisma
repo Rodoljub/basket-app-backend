@@ -20,6 +20,7 @@ model Place {
   movementsFrom Movement[]  @relation("MovementFrom")
   movementsTo   Movement[]  @relation("MovementTo")
 
+  driverForVan  Driver?   @relation("DriverVan")
   routeStores RouteStore[]
 }
 
@@ -32,17 +33,12 @@ enum PlaceType {
 model Driver {
   id        Int        @id @default(autoincrement())
   name      String
-  van       Van?       @relation(fields: [vanId], references: [id])
+  van       Place?   @relation("DriverVan", fields: [vanId], references: [id])
   vanId     Int?       @unique
   routes    Route[]
   movements Movement[] // One-to-many: a driver has many movements
 }
 
-model Van {
-  id          Int     @id @default(autoincrement())
-  plateNumber String  @unique
-  driver      Driver?
-}
 
 model Route {
   id          Int          @id @default(autoincrement())

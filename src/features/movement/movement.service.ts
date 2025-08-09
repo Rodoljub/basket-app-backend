@@ -20,14 +20,19 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
     where: { id: routeId },
     include: {
       driver: {
-        include: { van: true },
+      include: {
+        van: true,  // <-- this works because van is a relation to Place
       },
     },
+    routeStores: {
+      include: { place: true },
+    },
+    },
   });
+  
+  if (!route?.driver?.vanId) throw new Error('Van not found for route');
 
-  if (!route?.driver?.van) throw new Error('Van not found for route');
-
-  const vanId = route.driver.van.id;
+  const vanId = route.driver.vanId;
 
   const fromPlaceId = delta > 0 ? vanId : placeId;
   const toPlaceId = delta > 0 ? placeId : vanId;
