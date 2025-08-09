@@ -1,6 +1,7 @@
 // src/features/place/place.controller.ts
 import { Request, Response } from 'express';
 import { placeService } from './place.service';
+import { PlaceType } from '@prisma/client';
 
 export const placeController = {
   async getAll(req: Request, res: Response) {
@@ -11,6 +12,14 @@ export const placeController = {
   async getById(req: Request, res: Response) {
     const id = Number(req.params.id);
     const place = await placeService.getById(id);
+    if (!place) return res.status(404).json({ error: 'Place not found' });
+    res.json(place);
+  },
+
+  async getByType(req: Request, res: Response) {
+    const type = req.query.type as PlaceType;
+    
+    const place = await placeService.getByType(type);
     if (!place) return res.status(404).json({ error: 'Place not found' });
     res.json(place);
   },

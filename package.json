@@ -4,6 +4,8 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
+    "devs": "ts-node-dev --inspect --respawn --transpile-only src/server.ts",
+    "debug": "ts-node-dev --inspect --respawn src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },

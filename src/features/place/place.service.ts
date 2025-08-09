@@ -1,5 +1,5 @@
 // src/features/place/place.service.ts
-import { PrismaClient } from '@prisma/client';
+import { PlaceType, PrismaClient } from '@prisma/client';
 import { CreatePlaceDto } from './place.types';
 
 const prisma = new PrismaClient();
@@ -11,6 +11,13 @@ export const placeService = {
 
   async getById(id: number) {
     return prisma.place.findUnique({ where: { id } });
+  },
+
+  async getByType(placeType: PlaceType) {
+    console.log('type');
+    return prisma.place.findMany({
+      where: { type: placeType as PlaceType }
+    })
   },
 
   async create(data: CreatePlaceDto) {
