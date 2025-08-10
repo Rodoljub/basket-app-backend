@@ -14,7 +14,7 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
     where: { id: placeId },
   });
   if (!store) throw new Error('Store not found');
-
+  console.log('store', store)
   // Get the van from the route
   const route = await prisma.route.findUnique({
     where: { id: routeId },
@@ -38,6 +38,9 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
   const toPlaceId = delta > 0 ? placeId : vanId;
   const quantity = Math.abs(delta);
 
+  console.log('fromPlaceId', fromPlaceId)
+  console.log('toPlaceId', toPlaceId)
+  console.log('placeId', placeId)
   // Create Movement
   const movement = await prisma.movement.create({
     data: {
@@ -53,7 +56,7 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
   const inventory = await prisma.inventory.upsert({
     where: {
       placeId_basketType: {
-        placeId,
+        placeId: placeId,
         basketType,
       },
     },
@@ -63,7 +66,7 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
       },
     },
     create: {
-      placeId,
+      placeId: placeId,
       basketType,
       quantity: delta,
     },
