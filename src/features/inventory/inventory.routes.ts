@@ -8,6 +8,6 @@ router.post('/', InventoryController.create);
 router.put('/:id', InventoryController.update);
 router.delete('/:id', InventoryController.delete);
 
-router.get('/:placeId', InventoryController.getInventoryByPlaceId);
+router.get('/place/:placeId', InventoryController.getInventoryByPlaceId);
 
 export default router;
