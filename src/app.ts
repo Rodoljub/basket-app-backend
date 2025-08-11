@@ -4,6 +4,11 @@ import cors from 'cors';
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
 // ✅ Use cors middleware before routes
 app.use(cors({
   origin: '*', // Or: process.env.CORS_ORIGIN if you want to restrict
@@ -13,6 +18,10 @@ app.use(cors({
 
 // ✅ Parse incoming JSON
 app.use(express.json());
+
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
 
 // Routes
 import placeRoutes from './features/place/place.routes';
@@ -35,3 +44,7 @@ app.use((req, res) => {
 });
 
 export default app;
+
+
+
+
