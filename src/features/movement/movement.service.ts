@@ -72,7 +72,26 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
     },
   });
 
-  return { movement, inventory };
+  const vanInventory = await prisma.inventory.upsert({
+  where: {
+    placeId_basketType: {
+      placeId: vanId,
+      basketType,
+    },
+  },
+  update: {
+    quantity: {
+      increment: -delta,
+    },
+  },
+  create: {
+    placeId: vanId,
+    basketType,
+    quantity: -delta,
+  },
+});
+
+  return { movement, inventory, vanInventory };
 };
 
 export const createMovement = async (data: CreateMovementInput) => {
