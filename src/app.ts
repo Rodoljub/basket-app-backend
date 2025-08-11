@@ -35,6 +35,10 @@ app.use(cors({
 // ✅ Parse incoming JSON
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Hello from backend!');
+});
+
 app.get('/health', (req, res) => {
   res.send('OK');
 });
