@@ -10,7 +10,7 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:4200', // frontend origin
+  origin: process.env.CORS_ORIGIN, // frontend origin
 //   credentials: true               // if you use cookies/auth
 }));
 
