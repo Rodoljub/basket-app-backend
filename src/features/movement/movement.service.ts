@@ -29,7 +29,7 @@ export const handleSimplifiedInteraction = async (input: SimplifiedInteractionIn
     },
     },
   });
-  
+  console.log('route driver id', route?.driver?.vanId)
   if (!route?.driver?.vanId) throw new Error('Van not found for route');
 
   const vanId = route.driver.vanId;

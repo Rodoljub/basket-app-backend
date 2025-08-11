@@ -38,9 +38,20 @@ export const placeService = {
     return prisma.place.update({ where: { id }, data });
   },
 
+  // async delete(id: number) {
+  //   return prisma.place.delete({ where: { id } });
+  // }
+
   async delete(id: number) {
-    return prisma.place.delete({ where: { id } });
-  }
+  await prisma.inventory.deleteMany({
+    where: { placeId: id },
+  });
+
+  return prisma.place.delete({
+    where: { id },
+  });
+}
+
 };
 
 
