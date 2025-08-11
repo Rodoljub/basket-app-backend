@@ -23,8 +23,8 @@ router.get('/movements/:id', async (req, res) => {
 
 router.post('/movements', async (req, res) => {
   try {
-    const { fromPlaceId, toPlaceId, quantity, basketType } = req.body;
-    const result = await createMovement({ fromPlaceId, toPlaceId, quantity, basketType });
+    const { driverId, fromPlaceId, toPlaceId, quantity, basketType } = req.body;
+    const result = await createMovement({ driverId, fromPlaceId, toPlaceId, quantity, basketType });
     res.status(201).json(result);
   } catch (err) {
     res.status(500).json({ error: 'Failed to create movement', details: err });
