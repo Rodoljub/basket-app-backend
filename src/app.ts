@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 // CORS middleware
 app.use(cors({
   origin: process.env.CORS_ORIGIN || '*', // allow all if not set
-  methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
 }));
 
