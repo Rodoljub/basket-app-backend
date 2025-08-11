@@ -6,6 +6,7 @@ export const getAllRouteStores = async (_req: Request, res: Response) => {
   res.json(result);
 };
 
+
 export const getById = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const result = await routeStoreService.getById(id);

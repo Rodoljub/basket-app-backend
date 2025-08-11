@@ -9,6 +9,16 @@ export const placeController = {
     res.json(places);
   },
 
+   async getWarehousesAndStores(req: Request, res: Response) {
+    try {
+      const places = await placeService.getWarehousesAndStores();
+      res.json(places);
+    } catch (error) {
+      console.error('Failed to get warehouses and stores:', error);
+      res.status(500).json({ error: 'Failed to fetch places' });
+    }
+  },
+
   async getById(req: Request, res: Response) {
     const id = Number(req.params.id);
     const place = await placeService.getById(id);

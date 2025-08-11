@@ -4,6 +4,8 @@ import { placeController } from './place.controller';
 
 const router = Router();
 
+router.get('/warehouses-stores', placeController.getWarehousesAndStores);
+
 router.get('/by-type', placeController.getByType);
 
 router.get('/', placeController.getAll);
