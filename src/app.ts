@@ -4,6 +4,22 @@ import cors from 'cors';
 
 const app = express();
 
+import fs from 'fs';
+import path from 'path';
+
+// Define log file path (in project root or /logs folder)
+const logFilePath = path.join(process.cwd(), 'requests.log');
+
+app.use((req, res, next) => {
+  const logLine = `${new Date().toISOString()} ${req.method} ${req.url}\n`;
+  fs.appendFile(logFilePath, logLine, (err) => {
+    if (err) {
+      console.error('Failed to write log:', err);
+    }
+  });
+  next();
+});
+
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
