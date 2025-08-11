@@ -10,7 +10,8 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-  origin: process.env.CORS_ORIGIN, // frontend origin
+  origin: '*'
+  // origin: process.env.CORS_ORIGIN, // frontend origin
 //   credentials: true               // if you use cookies/auth
 }));
 
