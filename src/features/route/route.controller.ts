@@ -27,6 +27,30 @@ export const updateRoute = async (req: Request, res: Response) => {
   res.json(updated);
 };
 
+export const patchRoute = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { name, driverId } = req.body;
+
+  try {
+    const updated = await RouteService.patchRoute(id, { name, driverId });
+    if (!updated) {
+      return res.status(404).json({ error: 'Route not found' });
+    }
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update route' });
+  }
+};
+
+
+// export const updateRoute = async (req: Request, res: Response) => {
+//   const id = Number(req.params.id);
+//   const { name, driverId } = req.body;
+//   const updated = await RouteService.updateRoute(id, name, driverId);
+//   if (!updated) return res.status(404).json({ error: 'Route not found' });
+//   res.json(updated);
+// };
+
 export const deleteRoute = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const deleted = await RouteService.deleteRoute(id);

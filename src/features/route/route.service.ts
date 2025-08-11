@@ -34,19 +34,47 @@ createRoute: async (name: string) => {
   });
 },
 
-updateRoute: async (id: number, name: string, driverId: number) => {
+updateRoute: async (id: number, name?: string, driverId?: number) => {
   try {
     return await prisma.route.update({
       where: { id },
       data: {
-        name,
-        driverId,
+        ...(name !== undefined && { name }),
+        ...(driverId !== undefined && { driverId }),
       },
     });
   } catch {
     return null;
   }
 },
+
+patchRoute: async (id: number, data: { name?: string; driverId?: number }) => {
+  try {
+    return await prisma.route.update({
+      where: { id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.driverId !== undefined && { driverId: data.driverId }),
+      },
+    });
+  } catch {
+    return null;
+  }
+},
+
+// updateRoute: async (id: number, name: string, driverId: number) => {
+//   try {
+//     return await prisma.route.update({
+//       where: { id },
+//       data: {
+//         name,
+//         driverId,
+//       },
+//     });
+//   } catch {
+//     return null;
+//   }
+// },
 
 deleteRoute: async (id: number) => {
   try {
