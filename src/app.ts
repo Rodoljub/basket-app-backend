@@ -33,4 +33,9 @@ app.use('/api/drivers', driverRoutes);
 app.use('/api/routes', routeRoutes);
 app.use('/api/routestores', routeStoreRoutes);
 
+app.use((req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.status(404).json({ message: "Not found" });
+});
+
 export default app;
